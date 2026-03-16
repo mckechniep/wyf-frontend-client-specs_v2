@@ -838,12 +838,17 @@
         justify-content: center;
         align-items: center;
         gap: 2rem;
-        z-index: 999;
+        z-index: 10000;
         overscroll-behavior: contain;
       }
       .nav-links.open { display: flex; }
 
       body.nav-open { overflow: hidden; }
+      body.nav-open nav {
+        background: var(--bg-main);
+        backdrop-filter: none;
+        z-index: 10001;
+      }
       .nav-links.open a {
         font-size: 1.15rem;
         letter-spacing: 0.1em;
@@ -855,6 +860,8 @@
       }
 
       .nav-toggle { display: flex; }
+      body.nav-open .nav-toggle span { background: var(--text-deep); }
+      body.nav-open .nav-brand span { color: var(--orange-deep) !important; }
 
       .hero {
         padding: 6rem 1.5rem 4rem;
