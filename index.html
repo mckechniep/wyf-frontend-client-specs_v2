@@ -721,12 +721,13 @@
 
     .cta-form {
       display: flex;
-      gap: 0;
-      max-width: 440px;
+      align-items: center;
+      gap: 0.5rem;
+      max-width: 480px;
       margin: 0 auto 1.25rem;
       border-radius: 100px;
-      overflow: hidden;
       background: white;
+      padding: 0.35rem 0.35rem 0.35rem 1.5rem;
       box-shadow: 0 8px 30px rgba(0,0,0,0.12);
       transition: box-shadow 0.3s ease;
     }
@@ -737,13 +738,14 @@
 
     .cta-form input {
       flex: 1;
-      padding: 1rem 1.5rem;
+      padding: 0.75rem 0;
       background: transparent;
       border: none;
       outline: none;
       color: var(--text-deep);
       font-family: var(--font-body);
       font-size: 0.92rem;
+      min-width: 0;
     }
 
     .cta-form input::placeholder {
@@ -751,9 +753,10 @@
     }
 
     .cta-form button {
-      padding: 1rem 1.75rem;
-      background: var(--grad-warm);
+      padding: 0.85rem 1.75rem;
+      background: var(--text-deep);
       border: none;
+      border-radius: 100px;
       color: white;
       font-family: var(--font-body);
       font-size: 0.82rem;
@@ -763,10 +766,11 @@
       cursor: pointer;
       transition: all 0.3s ease;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .cta-form button:hover {
-      filter: brightness(1.1);
+      background: var(--orange-deep);
     }
 
     .cta-confirmation {
@@ -829,15 +833,17 @@
         display: none;
         position: fixed;
         inset: 0;
-        background: rgba(254, 250, 246, 0.97);
-        backdrop-filter: blur(16px);
+        background: var(--bg-main);
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 2rem;
         z-index: 999;
+        overscroll-behavior: contain;
       }
       .nav-links.open { display: flex; }
+
+      body.nav-open { overflow: hidden; }
       .nav-links.open a {
         font-size: 1.15rem;
         letter-spacing: 0.1em;
@@ -874,10 +880,11 @@
 
       .cta-form {
         flex-direction: column;
-        border-radius: 16px;
+        border-radius: 20px;
+        padding: 0.5rem;
       }
-      .cta-form input { text-align: center; padding: 1rem; }
-      .cta-form button { border-radius: 0 0 16px 16px; padding: 1rem; }
+      .cta-form input { text-align: center; padding: 0.85rem 1rem; }
+      .cta-form button { border-radius: 14px; padding: 0.85rem 1rem; width: 100%; }
 
       .mission { padding: 4rem 1.5rem 3rem; }
       .fasts { padding: 5rem 1.5rem; }
@@ -1168,9 +1175,13 @@
     const navLinks = document.getElementById('navLinks');
     navToggle.addEventListener('click', () => {
       navLinks.classList.toggle('open');
+      document.body.classList.toggle('nav-open');
     });
     navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => navLinks.classList.remove('open'));
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        document.body.classList.remove('nav-open');
+      });
     });
 
     // CTA form
