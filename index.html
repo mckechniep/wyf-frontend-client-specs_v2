@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>When You Fast</title>
+  <link rel="icon" type="image/png" href="logo-wyf.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,600;1,9..144,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Brilliant oranges */
+      --orange-deep: #D4581A;
+      --orange-core: #E8712A;
+      --orange-bright: #F59A3A;
+      --orange-golden: #F7B94A;
+      --orange-pale: #FDE8CC;
+      --orange-whisper: #FFF5EB;
+
+      /* Warm foundations */
+      --bg-main: #FEFAF6;
+      --bg-warm: #FBF3EA;
+      --bg-peach: #FFF0E2;
+      --bg-white: #FFFFFF;
+
+      /* Text */
+      --text-deep: #2D1810;
+      --text-body: #5C3D2E;
+      --text-muted: #9B7A68;
+      --text-light: #C4A692;
+      --text-on-orange: #FFFFFF;
+
+      /* Borders & subtle */
+      --border-warm: rgba(212, 88, 26, 0.1);
+      --border-orange: rgba(232, 113, 42, 0.2);
+
+      /* Fonts */
+      --font-display: 'Fraunces', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-scripture: 'Lora', serif;
+
+      /* Orange gradient presets */
+      --grad-hero: linear-gradient(135deg, #D4581A 0%, #E8712A 25%, #F59A3A 60%, #F7B94A 100%);
+      --grad-warm: linear-gradient(135deg, #E8712A, #F59A3A);
+      --grad-soft: linear-gradient(135deg, #F59A3A, #F7B94A);
+      --grad-subtle: linear-gradient(180deg, var(--bg-peach), var(--bg-main));
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-main);
+      color: var(--text-body);
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background: var(--orange-bright);
+      color: white;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== NAVIGATION ========== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 1.15rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.4s ease;
+    }
+
+    nav.scrolled {
+      padding: 0.7rem 3rem;
+      background: rgba(254, 250, 246, 0.92);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border-bottom: 1px solid var(--border-warm);
+      box-shadow: 0 1px 20px rgba(212, 88, 26, 0.06);
+    }
+
+    /* On the orange hero, nav text is white; once scrolled past, it becomes dark */
+    nav .nav-brand span {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.01em;
+      color: white;
+      transition: color 0.4s ease;
+    }
+    nav.scrolled .nav-brand span {
+      color: var(--orange-deep);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .nav-brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    nav.scrolled .nav-links a {
+      color: var(--text-muted);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      border-radius: 1px;
+      background: currentColor;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: white; }
+    nav.scrolled .nav-links a:hover { color: var(--orange-core); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      padding: 0.55rem 1.5rem !important;
+      border: 1.5px solid rgba(255,255,255,0.5) !important;
+      border-radius: 100px !important;
+      color: white !important;
+      transition: all 0.3s ease !important;
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover {
+      background: white !important;
+      color: var(--orange-deep) !important;
+      border-color: white !important;
+    }
+    nav.scrolled .nav-cta {
+      border-color: var(--orange-core) !important;
+      color: var(--orange-core) !important;
+    }
+    nav.scrolled .nav-cta:hover {
+      background: var(--orange-core) !important;
+      color: white !important;
+    }
+    .nav-cta::after { display: none !important; }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 1001;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px; height: 2px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    nav.scrolled .nav-toggle span {
+      background: var(--text-deep);
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      min-height: 66vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6.5rem 2rem 4.5rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--grad-hero);
+    }
+
+    /* Layered radial glow for depth */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%; right: -20%;
+      width: 70vw; height: 70vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(247, 185, 74, 0.35) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -20%; left: -15%;
+      width: 60vw; height: 60vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 88, 26, 0.2) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Subtle grain on hero */
+    .hero-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 200px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .hero-tagline {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(3.2rem, 8vw, 6rem);
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: white;
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+      text-shadow: 0 2px 30px rgba(0,0,0,0.08);
+    }
+
+    .hero h1 .line-2 {
+      display: block;
+      font-style: italic;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .hero-divider {
+      width: 50px;
+      height: 2px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 2px;
+      margin: 0 auto 1.75rem;
+      opacity: 0;
+      animation: fadeIn 1s 0.8s forwards;
+    }
+
+    .hero-sub {
+      font-family: var(--font-scripture);
+      font-size: clamp(1.1rem, 2.4vw, 1.45rem);
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(255,255,255,0.85);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.55;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+    }
+
+    /* Curved bottom edge for hero */
+    .hero-curve {
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      z-index: 3;
+    }
+    .hero-curve svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ========== MISSION / ABOUT ========== */
+    .mission {
+      padding: 6rem 2rem 5rem;
+      background: var(--bg-main);
+      position: relative;
+    }
+
+    .mission-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .mission p {
+      font-family: var(--font-scripture);
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      line-height: 1.85;
+      color: var(--text-body);
+      margin-bottom: 1.75rem;
+    }
+
+    .mission .highlight-line {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.3;
+      margin: 2.5rem auto;
+      display: block;
+      background: var(--grad-warm);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ========== SCRIPTURE MARQUEE ========== */
+    .marquee-section {
+      padding: 2.25rem 0;
+      background: var(--bg-peach);
+      overflow: hidden;
+      position: relative;
+      border-top: 1px solid var(--border-warm);
+      border-bottom: 1px solid var(--border-warm);
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 65s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+      padding: 0 2.25rem;
+      white-space: nowrap;
+    }
+
+    .marquee-item p {
+      font-family: var(--font-scripture);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .marquee-item .star {
+      color: var(--orange-bright);
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    /* ========== FASTING PLANS ========== */
+    .fasts {
+      padding: 7rem 2rem;
+      background: var(--bg-main);
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--orange-core);
+      margin-bottom: 1.25rem;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text-deep);
+      margin-bottom: 1rem;
+    }
+
+    .section-header > p {
+      font-family: var(--font-scripture);
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .fasts-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.25rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .fast-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-warm);
+      border-radius: 18px;
+      padding: 1.75rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: default;
+    }
+
+    .fast-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--grad-warm);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .fast-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(212, 88, 26, 0.1), 0 2px 12px rgba(212, 88, 26, 0.06);
+      border-color: var(--border-orange);
+    }
+    .fast-card:hover::before { transform: scaleX(1); }
+
+    .fast-card .days {
+      font-family: var(--font-display);
+      font-size: 2.6rem;
+      font-weight: 900;
+      line-height: 1;
+      background: var(--grad-warm);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.2rem;
+    }
+
+    .fast-card .fast-name {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-deep);
+      margin-bottom: 0.85rem;
+    }
+
+    .fast-card .fast-desc {
+      font-family: var(--font-scripture);
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ========== TESTIMONIALS ========== */
+    .testimonials {
+      padding: 7rem 2rem;
+      background: var(--grad-subtle);
+      position: relative;
+    }
+
+    .testimonials-label {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .testimonials h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      text-align: center;
+      color: var(--text-deep);
+      margin-bottom: 3.5rem;
+    }
+
+    .testimonials-container {
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .testimonials-tier {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .testimonials-tier.tier-short {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .testimonials-tier.tier-medium {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .testimonials-tier.tier-long {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tier-divider {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 2.5rem 0;
+    }
+
+    .tier-divider::before,
+    .tier-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-orange), transparent);
+    }
+
+    .tier-divider-icon {
+      font-size: 0.7rem;
+      color: var(--orange-bright);
+      opacity: 0.6;
+    }
+
+    .testimonial-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-warm);
+      border-radius: 18px;
+      padding: 2.25rem 1.75rem 1.75rem;
+      position: relative;
+      transition: all 0.35s ease;
+    }
+
+    .testimonial-card:hover {
+      box-shadow: 0 8px 30px rgba(212, 88, 26, 0.08);
+      border-color: var(--border-orange);
+    }
+
+    .testimonial-quote-mark {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1;
+      background: var(--grad-soft);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: absolute;
+      top: 1rem; left: 1.5rem;
+      opacity: 0.45;
+    }
+
+    .testimonial-text {
+      font-family: var(--font-scripture);
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--text-body);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-warm);
+    }
+
+    .testimonial-author .name {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-deep);
+    }
+
+    .testimonial-author .fast-type {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--orange-core);
+      letter-spacing: 0.03em;
+    }
+
+    /* ========== CTA SECTION ========== */
+    .cta-section {
+      padding: 6rem 2rem 7rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--grad-hero);
+    }
+
+    /* Radial glows */
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -40%; left: -20%;
+      width: 70vw; height: 70vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(247, 185, 74, 0.25) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 200px;
+    }
+
+    /* Curved top edge */
+    .cta-curve {
+      position: absolute;
+      top: -2px; left: 0; right: 0;
+      z-index: 3;
+    }
+    .cta-curve svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .cta-inner {
+      max-width: 540px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      color: white;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+
+    .cta-section > .cta-inner > p:first-of-type {
+      font-family: var(--font-scripture);
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
+      margin-bottom: 2.25rem;
+    }
+
+    .cta-form {
+      display: flex;
+      gap: 0;
+      max-width: 440px;
+      margin: 0 auto 1.25rem;
+      border-radius: 100px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .cta-form:focus-within {
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    }
+
+    .cta-form input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-deep);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+    }
+
+    .cta-form input::placeholder {
+      color: var(--text-light);
+    }
+
+    .cta-form button {
+      padding: 1rem 1.75rem;
+      background: var(--grad-warm);
+      border: none;
+      color: white;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .cta-form button:hover {
+      filter: brightness(1.1);
+    }
+
+    .cta-confirmation {
+      font-family: var(--font-scripture);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.75);
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      padding: 3.5rem 2rem 2rem;
+      background: var(--bg-warm);
+      border-top: 1px solid var(--border-warm);
+      text-align: center;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-brand img {
+      width: 26px; height: 26px;
+      border-radius: 6px;
+    }
+
+    .footer-brand span {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--orange-core);
+    }
+
+    .footer-scripture {
+      font-family: var(--font-scripture);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      letter-spacing: 0.04em;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      nav.scrolled { padding: 0.7rem 1.5rem; }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(254, 250, 246, 0.97);
+        backdrop-filter: blur(16px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        z-index: 999;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links.open a {
+        font-size: 1.15rem;
+        letter-spacing: 0.1em;
+        color: var(--text-deep) !important;
+      }
+      .nav-links.open .nav-cta {
+        border-color: var(--orange-core) !important;
+        color: var(--orange-core) !important;
+      }
+
+      .nav-toggle { display: flex; }
+
+      .hero {
+        padding: 6rem 1.5rem 4rem;
+        min-height: 55vh;
+      }
+
+      .fasts-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+        margin: 0 auto;
+      }
+
+      .testimonials-tier.tier-short,
+      .testimonials-tier.tier-medium,
+      .testimonials-tier.tier-long {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonials-container {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .cta-form {
+        flex-direction: column;
+        border-radius: 16px;
+      }
+      .cta-form input { text-align: center; padding: 1rem; }
+      .cta-form button { border-radius: 0 0 16px 16px; padding: 1rem; }
+
+      .mission { padding: 4rem 1.5rem 3rem; }
+      .fasts { padding: 5rem 1.5rem; }
+      .testimonials { padding: 5rem 1.5rem; }
+      .cta-section { padding: 4rem 1.5rem 5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.6rem; }
+      .section-header h2 { font-size: 1.65rem; }
+      .fast-card .days { font-size: 2.2rem; }
+    }
+
+    @media (min-width: 769px) and (max-width: 1100px) {
+      .fasts-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav id="navbar">
+    <a href="#" class="nav-brand">
+      <img src="logo-wyf.png" alt="When You Fast logo" />
+      <span>When You Fast</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#fasts">Fasts</a></li>
+      <li><a href="#signup" class="nav-cta">Begin Your Fast</a></li>
+    </ul>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="top">
+    <div class="hero-grain"></div>
+    <div class="hero-content">
+      <h1>
+        Crucify the flesh.<br />
+        <span class="line-2">Live by the Spirit.</span>
+      </h1>
+    </div>
+    <div class="hero-curve">
+      <svg viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 80V30C360 70 720 0 1440 50V80H0Z" fill="#FEFAF6"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ==================== MISSION / ABOUT ==================== -->
+  <section class="mission" id="about">
+    <div class="mission-inner">
+      <p class="highlight-line reveal">We are called to fast.</p>
+      <p class="reveal">But like many practices outlined in scripture, the western church has deprioritized fasting as a necessary part of the Christian life.</p>
+      <p class="highlight-line reveal">Fasting isn't optional — it's essential.</p>
+      <p class="reveal">When You Fast exists to change that and help guide Christians in cultivating a consistent, fruitful lifestyle of fasting.</p>
+    </div>
+  </section>
+
+  <!-- ==================== SCRIPTURE MARQUEE ==================== -->
+  <section class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-item">
+        <p>&ldquo;And when you fast, do not look gloomy like the hypocrites, for they disfigure their faces that their fasting may be seen by others&hellip;&rdquo;</p>
+        <span class="star">&#10022;</span>
+      </div>
+      <div class="marquee-item">
+        <p>&ldquo;But when you fast, anoint your head and wash your face, that your fasting may not be seen by others but by your Father who is in secret.&rdquo; — Matthew 6:16-18</p>
+        <span class="star">&#10022;</span>
+      </div>
+      <div class="marquee-item">
+        <p>&ldquo;And when you fast, do not look gloomy like the hypocrites, for they disfigure their faces that their fasting may be seen by others&hellip;&rdquo;</p>
+        <span class="star">&#10022;</span>
+      </div>
+      <div class="marquee-item">
+        <p>&ldquo;But when you fast, anoint your head and wash your face, that your fasting may not be seen by others but by your Father who is in secret.&rdquo; — Matthew 6:16-18</p>
+        <span class="star">&#10022;</span>
+      </div>
+      <div class="marquee-item">
+        <p>&ldquo;And when you fast, do not look gloomy like the hypocrites, for they disfigure their faces that their fasting may be seen by others&hellip;&rdquo;</p>
+        <span class="star">&#10022;</span>
+      </div>
+      <div class="marquee-item">
+        <p>&ldquo;But when you fast, anoint your head and wash your face, that your fasting may not be seen by others but by your Father who is in secret.&rdquo; — Matthew 6:16-18</p>
+        <span class="star">&#10022;</span>
+      </div>
+      <div class="marquee-item">
+        <p>&ldquo;And when you fast, do not look gloomy like the hypocrites, for they disfigure their faces that their fasting may be seen by others&hellip;&rdquo;</p>
+        <span class="star">&#10022;</span>
+      </div>
+      <div class="marquee-item">
+        <p>&ldquo;But when you fast, anoint your head and wash your face, that your fasting may not be seen by others but by your Father who is in secret.&rdquo; — Matthew 6:16-18</p>
+        <span class="star">&#10022;</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FASTING PLANS ==================== -->
+  <section class="fasts" id="fasts">
+    <div class="section-header reveal">
+      <p class="section-label">Choose Your Fast</p>
+      <h2>Select a fasting plan and draw closer to God through the discipline of dying to the flesh:</h2>
+    </div>
+
+    <div class="fasts-grid">
+      <div class="fast-card reveal">
+        <div class="days">1 Day</div>
+        <div class="fast-name">24-Hour Fast</div>
+        <p class="fast-desc">A single day of fasting — sunrise to sunrise. Ideal for those beginning their fasting journey or seeking focused time in prayer.</p>
+      </div>
+
+      <div class="fast-card reveal">
+        <div class="days">3 Days</div>
+        <div class="fast-name">Esther Fast</div>
+        <p class="fast-desc">Three days of fasting and prayer modeled after Queen Esther's call to her people before approaching the king.</p>
+      </div>
+
+      <div class="fast-card reveal">
+        <div class="days">10 Days</div>
+        <div class="fast-name">Daniel Fast (10 Day)</div>
+        <p class="fast-desc">Ten days of eating only vegetables and water, following Daniel's example of faithfulness and obedience in Babylon.</p>
+      </div>
+
+      <div class="fast-card reveal">
+        <div class="days">21 Days</div>
+        <div class="fast-name">Daniel Fast (21 Day)</div>
+        <p class="fast-desc">Twenty-one days of partial fasting and persistent prayer, modeled after Daniel's three weeks of mourning before God.</p>
+      </div>
+
+      <div class="fast-card reveal">
+        <div class="days">40 Days</div>
+        <div class="fast-name">Wilderness Fast</div>
+        <p class="fast-desc">The ultimate fast — forty days following the pattern of Moses on Sinai, Elijah's journey, and Jesus in the wilderness.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIALS ==================== -->
+  <section class="testimonials" id="testimonies">
+    <p class="testimonials-label reveal">— TESTIMONIES —</p>
+    <h2 class="reveal">Stories of Transformation</h2>
+
+    <div class="testimonials-container">
+      <!-- Tier 1: 3 short testimonials -->
+      <div class="testimonials-tier tier-short">
+        <div class="testimonial-card reveal">
+          <span class="testimonial-quote-mark">&ldquo;</span>
+          <p class="testimonial-text">My first Daniel Fast changed everything. I didn't just lose cravings for food — I lost the grip anxiety had on my life. God met me in the hunger.</p>
+          <div class="testimonial-author">
+            <span class="name">Sarah M.</span>
+            <span class="fast-type">Daniel Fast (10 Day)</span>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <span class="testimonial-quote-mark">&ldquo;</span>
+          <p class="testimonial-text">Our small group fasted together for seven days. By day three, we were praying with a boldness none of us had experienced before. Revival starts with surrender.</p>
+          <div class="testimonial-author">
+            <span class="name">Pastor James K.</span>
+            <span class="fast-type">Daniel Fast (10 Day)</span>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <span class="testimonial-quote-mark">&ldquo;</span>
+          <p class="testimonial-text">I was skeptical about fasting apps, but the daily Scripture and prayer prompts kept me anchored. It wasn't about willpower — it was about worship.</p>
+          <div class="testimonial-author">
+            <span class="name">David & Rachel T.</span>
+            <span class="fast-type">Daniel Fast (10 Day)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="tier-divider">
+        <span class="tier-divider-icon">&#10022;</span>
+      </div>
+
+      <!-- Tier 2: 2 medium testimonials -->
+      <div class="testimonials-tier tier-medium">
+        <div class="testimonial-card reveal">
+          <span class="testimonial-quote-mark">&ldquo;</span>
+          <p class="testimonial-text">Even with the uncertainty of fasting since I had never done it before and being unsure of what to expect, God's posture wasn't "you must do this right and long enough and then if you're good enough I might speak to you." As soon as I said "yes" to God in committing to this fast, He spoke.</p>
+          <div class="testimonial-author">
+            <span class="name">Lars N.</span>
+            <span class="fast-type">Daniel Fast (10 Day)</span>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <span class="testimonial-quote-mark">&ldquo;</span>
+          <p class="testimonial-text">I felt a deeper appreciation for the miracle of how God designed our bodies and felt a stronger desire to care for it with intention and respect. It made me wonder why I ever ate anything unhealthy just for the pleasure of it. I also felt more aware about everything and could see how this prepared anyone for worship, prayer and study of Gods word.</p>
+          <div class="testimonial-author">
+            <span class="name">Cindy A.</span>
+            <span class="fast-type">Daniel Fast (10 Day)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="tier-divider">
+        <span class="tier-divider-icon">&#10022;</span>
+      </div>
+
+      <!-- Tier 3: 2 long testimonials -->
+      <div class="testimonials-tier tier-long">
+        <div class="testimonial-card reveal">
+          <span class="testimonial-quote-mark">&ldquo;</span>
+          <p class="testimonial-text">You might wonder if 10 days can change your life and after completing the Daniel Fast my answer is YES. When the stomach is only processing fruits and vegetables you can see and feel the improved digestion/detoxification. After the caffeine and sugar withdrawals finally subsided I experienced incredible mental clarity in decision making for the work day. (You have no choice but to pray for these first couple of days if you love coffee like I do) Finally the weight loss (it will require habit change moving forward) and better sleep made a world of difference in how I looked and felt. Pray better, sleep better, feel better, and connect with God… it's a wonder we don't do these things more often.</p>
+          <div class="testimonial-author">
+            <span class="name">Michael V.</span>
+            <span class="fast-type">Daniel Fast (10 Day)</span>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <span class="testimonial-quote-mark">&ldquo;</span>
+          <p class="testimonial-text">What started as a physical reset became something much deeper. I learned just how mentally tough I can be when I choose to fuel my body with the nutrients it truly needs, not just what it craves. More importantly, I found myself drawing closer to God each day. Whenever I felt low on energy or tempted to give in, I leaned on Him to carry me through… when we put God first and trust Him with our discipline, He meets us with clarity, strength, and a deeper connection to His purpose. This fast reminded me that true strength comes not from willpower alone, but from surrendering our weakness to God and letting Him be our source.</p>
+          <div class="testimonial-author">
+            <span class="name">Tanner C.</span>
+            <span class="fast-type">Daniel Fast (10 Day)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA / SIGN UP ==================== -->
+  <section class="cta-section" id="signup">
+    <div class="cta-grain"></div>
+    <div class="cta-curve">
+      <svg viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 0V50C360 10 720 80 1440 30V0H0Z" fill="#FBF3EA"/>
+      </svg>
+    </div>
+    <div class="cta-inner reveal">
+      <h2>Begin Your Fast</h2>
+      <p>Sign up to receive guided fasting plans, daily scripture, and community support.</p>
+      <form class="cta-form" id="ctaForm">
+        <input type="email" placeholder="Enter your email" required aria-label="Enter your email" />
+        <button type="submit">Sign Up</button>
+      </form>
+      <p class="cta-confirmation" id="ctaConfirmation" style="display:none;">Thank you. Your fast begins soon.</p>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    <div class="footer-brand">
+      <img src="logo-wyf.png" alt="When You Fast" />
+      <span>When You Fast</span>
+    </div>
+    <p class="footer-scripture">&ldquo;However, this kind does not go out except by prayer and fasting.&rdquo; — Matthew 17:21</p>
+    <p class="footer-copy">&copy; 2026 When You Fast. All rights reserved.</p>
+  </footer>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+    // Scroll reveal with stagger
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const siblings = Array.from(entry.target.parentElement.querySelectorAll('.reveal'));
+          const idx = siblings.indexOf(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, idx * 90);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // CTA form
+    const ctaForm = document.getElementById('ctaForm');
+    const ctaConfirmation = document.getElementById('ctaConfirmation');
+    ctaForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      ctaForm.style.display = 'none';
+      ctaConfirmation.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
