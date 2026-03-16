@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="logo-wyf.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,600;1,9..144,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,600;1,9..144,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
   <style>
     :root {
       /* Brilliant oranges */
@@ -290,11 +290,11 @@
     }
 
     .hero h1 {
-      font-family: var(--font-display);
-      font-weight: 800;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
       font-size: clamp(3.2rem, 8vw, 6rem);
-      line-height: 1.05;
-      letter-spacing: -0.015em;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
       color: white;
       margin-bottom: 1.75rem;
       opacity: 0;
@@ -304,9 +304,10 @@
 
     .hero h1 .line-2 {
       display: block;
+      font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-weight: 600;
-      color: rgba(255,255,255,0.9);
+      font-weight: 700;
+      color: rgba(255,255,255,0.95);
     }
 
     .hero-divider {
@@ -556,10 +557,6 @@
     .testimonials-tier {
       display: grid;
       gap: 1.25rem;
-    }
-
-    .testimonials-tier.tier-short {
-      grid-template-columns: repeat(3, 1fr);
     }
 
     .testimonials-tier.tier-medium {
@@ -874,7 +871,6 @@
         margin: 0 auto;
       }
 
-      .testimonials-tier.tier-short,
       .testimonials-tier.tier-medium,
       .testimonials-tier.tier-long {
         grid-template-columns: 1fr;
@@ -935,7 +931,7 @@
     <div class="hero-grain"></div>
     <div class="hero-content">
       <h1>
-        Crucify the flesh.<br />
+        Crucify the <span style="letter-spacing:0.03em">flesh.</span><br />
         <span class="line-2">Live by the Spirit.</span>
       </h1>
     </div>
@@ -1040,42 +1036,7 @@
     <h2 class="reveal">Stories of Transformation</h2>
 
     <div class="testimonials-container">
-      <!-- Tier 1: 3 short testimonials -->
-      <div class="testimonials-tier tier-short">
-        <div class="testimonial-card reveal">
-          <span class="testimonial-quote-mark">&ldquo;</span>
-          <p class="testimonial-text">My first Daniel Fast changed everything. I didn't just lose cravings for food — I lost the grip anxiety had on my life. God met me in the hunger.</p>
-          <div class="testimonial-author">
-            <span class="name">Sarah M.</span>
-            <span class="fast-type">Daniel Fast (10 Day)</span>
-          </div>
-        </div>
-
-        <div class="testimonial-card reveal">
-          <span class="testimonial-quote-mark">&ldquo;</span>
-          <p class="testimonial-text">Our small group fasted together for seven days. By day three, we were praying with a boldness none of us had experienced before. Revival starts with surrender.</p>
-          <div class="testimonial-author">
-            <span class="name">Pastor James K.</span>
-            <span class="fast-type">Daniel Fast (10 Day)</span>
-          </div>
-        </div>
-
-        <div class="testimonial-card reveal">
-          <span class="testimonial-quote-mark">&ldquo;</span>
-          <p class="testimonial-text">I was skeptical about fasting apps, but the daily Scripture and prayer prompts kept me anchored. It wasn't about willpower — it was about worship.</p>
-          <div class="testimonial-author">
-            <span class="name">David & Rachel T.</span>
-            <span class="fast-type">Daniel Fast (10 Day)</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Divider -->
-      <div class="tier-divider">
-        <span class="tier-divider-icon">&#10022;</span>
-      </div>
-
-      <!-- Tier 2: 2 medium testimonials -->
+      <!-- Tier 1: 2 medium testimonials -->
       <div class="testimonials-tier tier-medium">
         <div class="testimonial-card reveal">
           <span class="testimonial-quote-mark">&ldquo;</span>
